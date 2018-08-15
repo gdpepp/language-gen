@@ -1,5 +1,5 @@
+#include <string.h>
 #include "lang-gen.h"
-
 
 int main() {
     listInit();
@@ -7,25 +7,26 @@ int main() {
     return 0;
 }
 
-
-
-
-//TODO test
-void* choose(t_list* list, int exp) {
-
-    srand( (unsigned int) time(NULL));
-    int randint = rand();
+void* chooseFromList(t_list *list, int exp) {
+    int randint = getRandInt();
     int listlen = list_size(list);
 
-    if(!exp) {
-        exp = 1;
-    }
-    double index = floor(pow(randint, exp) * listlen);
+    exp ? exp : 1;
 
+    double index = floor(pow(randint, exp) * listlen);
     return list_get(list, (int) index);
 }
 
-//TODO test
+char chooseFromString(char* str, int exp) {
+    int randint = getRandInt();
+    size_t len = strlen(str);
+
+    exp ? exp : 1;
+
+    int index = (int) floor(pow(randint, exp) * len);
+    return str[index];
+}
+
 void shuffleList(t_list* list) {
     int i;
     int rand;
@@ -51,7 +52,6 @@ int getRandInt() {
 }
 
 
-//TODO test
 int getRandByRange(int lo, int hi) {
     int randint = getRandInt();
 
@@ -63,8 +63,6 @@ int getRandByRange(int lo, int hi) {
     return (int) floor(randint  * (hi - lo)) + lo;
 }
 
-
-//TODO test - join renamed to "append"
 char* append(t_list* list, char sep) {
     char *s = NULL;
     int i;
@@ -74,7 +72,8 @@ char* append(t_list* list, char sep) {
     if (!len) {
         //get first word from list
         s = list_get(list, 0);
-        s = malloc(strlen(s) + sizeof(char));
+        s = malloc( strlen(s) + sizeof(char));
+
 
         for (i = 1; i < len; i++) {
             //concat to s
@@ -86,33 +85,31 @@ char* append(t_list* list, char sep) {
     return s;
 }
 
-//TODO esto lo deje por la mitad
-char* spell(t_language lang, char* syll) {
+char* spell(t_lang_orth* orth, bool isOrtho, char* syll) {
     char* s = NULL;
+    size_t len = strlen(syll);
+    t_utf8 c;
+
     int i;
-    int len = strlen(syll);
-    char c;
-
-    if (ortho) {
+    if (isOrtho) {
         for (i = 0; i < len; i++) {
-            c = syll[i];
-            s += getOrthoFromAll(lang, c);
-
-                    lang.cortho[c] || lang.vortho[c] || defaultOrtho[c] || c;
+            c = (t_utf8) syll[i];
+            s += getCharFromAllOrtho(orth, c);
         }
     }
     return s;
 }
 
-//TODO esto lo deje por la mitad
-void makeSyllable(t_language* lang) {
+char *makeSyllable(t_language *lang) {
     int i;
-    char* syll = NULL;
-    int sylllen = strlen(lang->syllStructure);
+    size_t sylllen = strlen(lang->syllStructure);
+    char *syll = string_new();
+    char *phon;
     char ptype;
-    bool bad = false;
+    char toAppend;
+    bool rectified = false;
 
-    while (1) {
+    while (!rectified) {
         for (i = 0; i < sylllen; i++) {
             ptype = lang->syllStructure[i];
             if (lang->syllStructure[i + 1] == '?') {
@@ -121,16 +118,153 @@ void makeSyllable(t_language* lang) {
                     continue;
                 }
             }
-            syll += choose(lang.phonemes[ptype], lang->exponent);
+
+
+            phon = getPhonType(lang->phon, ptype);
+            toAppend = chooseFromString(phon, lang->exponent);
+            string_append(&syll, &toAppend);
         }
 
-        for (i = 0; i < lang.restricts.length; i++) {
+        /*TODO ver como evaluar regex -
+         * ver si "lang.restricts[i].test(syll)" devuelve TRUE en error
+         * for (i = 0; i < lang.restricts.length; i++) {
             if (lang.restricts[i].test(syll)) {
-                bad = true;
+
+ |            rectified = true;
                 break;
             }
         }
-        if (bad) continue;
-        return spell(lang, syll);
+         */
+        rectified = true;
     }
+
+    return spell(lang->orth, lang->ortho, syll);
+}
+
+/*TODO hasta aca llegue. Seguir por la proxima funcion
+ */
+char* getMorpheme(t_language* lang, char* key) {
+    int extras = 10;
+    int n;
+    int included = 0;
+    char* morph = NULL;
+    t_list* list = getMorphemeListFromList(lang->morphemes, key);
+    int len = list_size(list);
+
+    if (!lang->morph) {
+        return makeSyllable(lang);
+    }
+
+    if (key != NULL) {
+        extras = 1;
+    }
+
+    while (!included) {
+        n = getRandByRange(len + extras, 0);
+        morph = list_get(list,n);
+        if (morph == NULL) {
+            morph = makeSyllable(lang);
+
+            included = morphIncludedInList(list, morph);
+
+            if (!included) {
+                addMorphToList(list, morph, key);
+            }
+        }
+    }
+
+    return morph;
+}
+
+void addMorphToList(t_list *list, char *morph, char *key) {
+    int added = 0;
+    int i;
+    int len = list_size(list);
+    t_lang_morph *morphElem = NULL;
+
+    for (i = 0; i < len; i++) {
+        morphElem = list_get(list, i);
+        if(!strcmp(key, morphElem->key)) {
+            list_add(morphElem->morphemes, morph);
+            added = 1;
+        }
+    }
+
+    if(!added) {
+        addNewMorphElement(list, morph, key);
+    }
+}
+
+void addNewMorphElement(t_list *list, char *morph, char *key) {
+    t_lang_morph new = { .key = key, .morphemes = list_create()};
+    list_add(new.morphemes, morph);
+
+    list_add(list, &new);
+}
+
+int morphIncludedInList(t_list *list, char *m) {
+    int included = 0;
+    int i, j;
+    int len = list_size(list);
+    int mlen;
+    t_lang_morph *morphElem = NULL;
+    char *aux = NULL;
+
+    for (i = 0; i < len; i++) {
+        morphElem = list_get(list, i);
+        mlen = list_size(morphElem->morphemes);
+        for (j = 0; j < mlen; j++) {
+            aux = list_get(morphElem->morphemes, j);
+            if (!strcmp(aux, m)) {
+                //morph found
+                included = 1;
+                break;
+            }
+        }
+    }
+    return included;
+}
+
+t_list* getMorphemeListFromList(t_list* morphemes, char* key) {
+    int i;
+    int len = list_size(morphemes);
+    t_list* res = NULL;
+    t_lang_morph* aux = NULL;
+
+    for(i = 0; i < len; i++) {
+        aux = list_get(morphemes, i);
+        if(aux->key == key) {
+            res = aux->morphemes;
+            break;
+        }
+    }
+    return res;
+}
+
+
+char* getPhonType(t_lang_phon* phon, char ptype) {
+    char* result = NULL;
+
+    switch (ptype) {
+        case 'C':
+            result = phon->C;
+            break;
+        case 'V':
+            result = phon->V;
+            break;
+        case 'L':
+            result = phon->L;
+            break;
+        case 'S':
+            result = phon->S;
+            break;
+        case 'F':
+            result = phon->F;
+            break;
+        default:
+            result = &ptype;
+            break;
+    }
+
+    return result;
 }

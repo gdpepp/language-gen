@@ -135,7 +135,7 @@ void* list_remove_by_condition(t_list *self, bool(*condition)(void*)) {
 
 	t_link_element* element = list_find_element(self, condition, &index);
 	if (element != NULL) {
-		return l(self, index);
+		return list_remove(self, index);;
 	}
 
 	return NULL;

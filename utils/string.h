@@ -55,4 +55,11 @@ bool	string_contains(char* text, char *substring);
 	*/
 void 	string_capitalize(char * text);
 
+/**
+* @NAME: string_to_lower
+* @DESC: Pone en minuscula todos los caracteres de un string
+*/
+void 	string_to_lower(char * text);
+
+
 #endif /* STRING_UTILS_H_ */

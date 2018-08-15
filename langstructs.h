@@ -7,10 +7,14 @@
 
 #include "utils/list.h"
 
-typedef unsigned char utf8_t;
+typedef unsigned char t_utf8;
+
+/*
+ * LISTS STRUCTURES
+ */
 
 typedef struct orth {
-    utf8_t letter;
+    t_utf8 letter;
     char *sound;
 } t_orth;
 
@@ -30,6 +34,28 @@ typedef struct orthset {
 } t_orthset;
 
 
+/*
+ * LANG STRUCTURES
+ */
+
+typedef struct lang_phonemes {
+    char* C;
+    char* V;
+    char* L;
+    char* S;
+    char* F;
+} t_lang_phon;
+
+typedef struct lang_orth {
+    t_list* vortho;
+    t_list* cortho;
+} t_lang_orth;
+
+typedef struct lang_morph {
+    char* key;
+    t_list* morphemes;
+} t_lang_morph;
+
 typedef struct language {
     char* syllStructure;
     bool ortho;
@@ -41,11 +67,11 @@ typedef struct language {
     int maxSyll;
     int minchar;
     int maxchar;
-    t_list* morphemes;
-    t_list* phonemes;
     t_list* words;
     t_list* names;
-
+    t_list* morphemes; // list of t_lang_morph
+    t_lang_phon* phon;
+    t_lang_orth* orth;
 } t_language;
 
 t_list *defOrthList;
