@@ -61,7 +61,7 @@ function makeSyllable(lang) {
         var syll = "";
         for (var i = 0; i < lang.structure.length; i++) {
             var ptype = lang.structure[i];
-            if (lang.structure[i + 1] == '?') {
+		if (lang.structure[i + 1] == '?') {
                 i++;
                 if (Math.random() < 0.5) {
                     continue;
@@ -80,7 +80,7 @@ function makeSyllable(lang) {
         return spell(lang, syll);
     }
 }
-
+//pasada
 function getMorpheme(lang, key) {
     if (lang.nomorph) {
         return makeSyllable(lang);
@@ -107,6 +107,7 @@ function getMorpheme(lang, key) {
     }
 }
 
+//pasada
 function makeWord(lang, key) {
     var nsylls = randrange(lang.minsyll, lang.maxsyll + 1);
     var w = '';
@@ -118,6 +119,7 @@ function makeWord(lang, key) {
     return w;
 }
 
+//pasada
 function getWord(lang, key) {
     key = key || '';
     var ws = lang.words[key] || [];

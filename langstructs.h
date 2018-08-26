@@ -1,5 +1,5 @@
 //
-// Created by utnso on 23/07/18.
+// Created by gdpepp on 23/07/18.
 //
 
 #ifndef LANGUAGE_GEN_LANGSTRUCTS_H
@@ -51,10 +51,10 @@ typedef struct lang_orth {
     t_list* cortho;
 } t_lang_orth;
 
-typedef struct lang_morph {
+typedef struct lang_construct {
     char* key;
-    t_list* morphemes;
-} t_lang_morph;
+    t_list* elements;
+} t_lang_construct;
 
 typedef struct language {
     char* syllStructure;
@@ -67,9 +67,9 @@ typedef struct language {
     int maxSyll;
     int minchar;
     int maxchar;
-    t_list* words;
+    t_list* words; // list of t_lang_construct
     t_list* names;
-    t_list* morphemes; // list of t_lang_morph
+    t_list* morphemes; // list of t_lang_construct
     t_lang_phon* phon;
     t_lang_orth* orth;
 } t_language;

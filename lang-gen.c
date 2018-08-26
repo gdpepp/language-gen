@@ -100,7 +100,7 @@ char* spell(t_lang_orth* orth, bool isOrtho, char* syll) {
     return s;
 }
 
-char *makeSyllable(t_language *lang) {
+char* makeSyllable(t_language *lang) {
     int i;
     size_t sylllen = strlen(lang->syllStructure);
     char *syll = string_new();
@@ -148,7 +148,7 @@ char* getMorpheme(t_language* lang, char* key) {
     int n;
     int included = 0;
     char* morph = NULL;
-    t_list* list = getMorphemeListFromList(lang->morphemes, key);
+    t_list* list = getConstructListFromList(lang->morphemes, key);
     int len = list_size(list);
 
     if (!lang->morph) {
@@ -165,10 +165,10 @@ char* getMorpheme(t_language* lang, char* key) {
         if (morph == NULL) {
             morph = makeSyllable(lang);
 
-            included = morphIncludedInList(list, morph);
+            included = constructIncludedInList(list, morph);
 
             if (!included) {
-                addMorphToList(list, morph, key);
+                addConstructToList(list, morph, key);
             }
         }
     }
@@ -176,47 +176,47 @@ char* getMorpheme(t_language* lang, char* key) {
     return morph;
 }
 
-void addMorphToList(t_list *list, char *morph, char *key) {
+void addConstructToList(t_list *list, char *construct, char *key) {
     int added = 0;
     int i;
     int len = list_size(list);
-    t_lang_morph *morphElem = NULL;
+    t_lang_construct *elem = NULL;
 
     for (i = 0; i < len; i++) {
-        morphElem = list_get(list, i);
-        if(!strcmp(key, morphElem->key)) {
-            list_add(morphElem->morphemes, morph);
+        elem = list_get(list, i);
+        if(!strcmp(key, elem->key)) {
+            list_add(elem->elements, construct);
             added = 1;
         }
     }
 
     if(!added) {
-        addNewMorphElement(list, morph, key);
+        addNewConstructElement(list, construct, key);
     }
 }
 
-void addNewMorphElement(t_list *list, char *morph, char *key) {
-    t_lang_morph new = { .key = key, .morphemes = list_create()};
-    list_add(new.morphemes, morph);
+void addNewConstructElement(t_list *list, char *construct, char *key) {
+    t_lang_construct new = { .key = key, .elements = list_create()};
+    list_add(new.elements, construct);
 
     list_add(list, &new);
 }
 
-int morphIncludedInList(t_list *list, char *m) {
+int constructIncludedInList(t_list *list, char *m) {
     int included = 0;
     int i, j;
     int len = list_size(list);
-    int mlen;
-    t_lang_morph *morphElem = NULL;
+    int clen;
+    t_lang_construct *construct = NULL;
     char *aux = NULL;
 
     for (i = 0; i < len; i++) {
-        morphElem = list_get(list, i);
-        mlen = list_size(morphElem->morphemes);
-        for (j = 0; j < mlen; j++) {
-            aux = list_get(morphElem->morphemes, j);
+        construct = list_get(list, i);
+        clen = list_size(construct->elements);
+        for (j = 0; j < clen; j++) {
+            aux = list_get(construct->elements, j);
             if (!strcmp(aux, m)) {
-                //morph found
+                //construct found
                 included = 1;
                 break;
             }
@@ -225,22 +225,78 @@ int morphIncludedInList(t_list *list, char *m) {
     return included;
 }
 
-t_list* getMorphemeListFromList(t_list* morphemes, char* key) {
+t_list* getConstructListFromList(t_list* clist, char* key) {
     int i;
-    int len = list_size(morphemes);
+    int len = list_size(clist);
     t_list* res = NULL;
-    t_lang_morph* aux = NULL;
+    t_lang_construct* aux = NULL;
 
     for(i = 0; i < len; i++) {
-        aux = list_get(morphemes, i);
+        aux = list_get(clist, i);
         if(aux->key == key) {
-            res = aux->morphemes;
+            res = aux->elements;
             break;
         }
     }
     return res;
 }
 
+char* makeWord(t_language* lang, char* key) {
+    int nsylls =  getRandByRange(lang->minSyll, lang->maxSyll + 1);
+    int randompos = getRandByRange(nsylls, 0);
+    int i;
+    char* keys[nsylls];
+    keys[randompos] = key;
+    char* word = string_new();
+    char* morphemeToAppend = NULL;
+    
+    for(i = 0; i < nsylls; i++) {
+    	morphemeToAppend = getMorpheme(lang, keys[i]);
+	string_append(&word, morphemeToAppend);
+	
+	free(keys[i]);
+}
+
+    free(keys);
+return word;
+}
+
+char* getWord(t_language* lang, char* key) {
+    int extras;
+    int n;
+    int included = 0;
+    char* word = NULL;
+
+    if(key != NULL) {
+        extras = 2;
+    } else {
+        extras = 3;
+    }
+    
+    while (!included) {
+        n = getRandByRange(list_size(lang->words) + extras, 0);
+        word = list_get(lang->words, n);
+
+        if (!word) {
+            word = makeWord(lang, key);
+            included = constructIncludedInList(lang->words, word);
+
+            if (!included) {
+                addConstructToList(lang->words, word, key);
+            }
+        
+	}
+    }
+
+    return word; 
+}
+
+//TODO
+char* makeName(t_language* lang, char* key) {
+    char* name = NULL;
+
+    return name;
+}
 
 char* getPhonType(t_lang_phon* phon, char ptype) {
     char* result = NULL;

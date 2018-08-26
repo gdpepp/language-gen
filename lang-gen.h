@@ -22,11 +22,11 @@ int getRandByRange(int lo, int hi);
 
 int getRandInt();
 
-int morphIncludedInList(t_list* list, char *m);
+int constructIncludedInList(t_list* list, char *m);
 
-void addMorphToList(t_list *list, char *morph, char *key);
+void addConstructToList(t_list *list, char *morph, char *key);
 
-void addNewMorphElement(t_list *list, char *morph, char *key);
+void addNewConstructElement(t_list *list, char *morph, char *key);
 
 void shuffleList(t_list *list);
 
@@ -42,6 +42,6 @@ char *makeSyllable(t_language *lang);
 
 char *getPhonType(t_lang_phon *phon, char ptype);
 
-t_list* getMorphemeListFromList(t_list* morphemes, char* key);
+t_list* getConstructListFromList(t_list* clist, char* key);
 
 #endif //LANGUAGE_GEN_LANG_GEN_H
