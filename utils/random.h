@@ -1,9 +1,9 @@
 //
-// Created by gdi on 31/08/2018.
+// Created by gdi on 31/8/2018.
 //
 
-#ifndef RANDOM_H
-#define RANDOM_H
+#ifndef LANGUAGE_GEN_RANDOM_H
+#define LANGUAGE_GEN_RANDOM_H
 
 #include <stdlib.h>
 #include <math.h>
@@ -13,4 +13,4 @@ int getRandInt();
 
 int getRandByRange(int lo, int hi);
 
-#endif //RANDOM_H
+#endif //LANGUAGE_GEN_RANDOM_H
