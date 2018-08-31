@@ -58,6 +58,8 @@ typedef struct lang_construct {
 
 typedef struct language {
     char* syllStructure;
+    char* genitive;
+    char* definite;
     bool ortho;
     bool morph;
     bool wordpool;

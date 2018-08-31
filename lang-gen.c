@@ -46,23 +46,6 @@ void shuffleList(t_list* list) {
     }
 }
 
-int getRandInt() {
-    srand( (unsigned int) time(NULL));
-    return rand();
-}
-
-
-int getRandByRange(int lo, int hi) {
-    int randint = getRandInt();
-
-    if (hi == 0) {
-        hi = lo;
-        lo = 0;
-    }
-
-    return (int) floor(randint  * (hi - lo)) + lo;
-}
-
 char* append(t_list* list, char sep) {
     char *s = NULL;
     int i;
@@ -190,6 +173,7 @@ void addConstructToList(t_list *list, char *construct, char *key) {
         }
     }
 
+
     if(!added) {
         addNewConstructElement(list, construct, key);
     }
@@ -294,6 +278,27 @@ char* getWord(t_language* lang, char* key) {
 //TODO
 char* makeName(t_language* lang, char* key) {
     char* name = NULL;
+    char* w1 = NULL;
+    char* w2 = NULL;   
+
+    if(lang->definite == NULL) {
+    	lang->definite = "the";
+    }
+
+    if(lang->genitive == NULL) {
+    	lang->genitive = "of";
+    }
+    
+    while(1) {
+        if(getRandByRange(0,10) < 5 ) {	
+	    name = getWord(lang, key); 
+	    string_capitalize(name);
+	} else {
+	    // TODO
+	    //continuar desarrollo de makeName
+}
+    
+    }
 
     return name;
 }
