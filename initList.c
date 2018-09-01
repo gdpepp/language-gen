@@ -30,15 +30,15 @@ void createLists() {
 
 // TODO transformar a unicode
 void defOrthInit() {
-    list_add( defOrthList, & (t_orth) {.letter = 'ʃ', .sound = "sh"} );
-    list_add( defOrthList, & (t_orth) {.letter = 'ʒ', .sound = "zh"} );
-    list_add( defOrthList, & (t_orth) {.letter = 'ʧ', .sound = "ch"} );
-    list_add( defOrthList, & (t_orth) {.letter = 'ʤ', .sound = "j"} );
-    list_add( defOrthList, & (t_orth) {.letter = 'ŋ', .sound = "ng"} );
+    list_add( defOrthList, & (t_orth) {.letter = L'ʃ', .sound = "sh"} );
+    list_add( defOrthList, & (t_orth) {.letter = L'ʒ', .sound = "zh"} );
+    list_add( defOrthList, & (t_orth) {.letter = L'ʧ', .sound = "ch"} );
+    list_add( defOrthList, & (t_orth) {.letter = L'ʤ', .sound = "j"} );
+    list_add( defOrthList, & (t_orth) {.letter = L'ŋ', .sound = "ng"} );
     list_add( defOrthList, & (t_orth) {.letter = 'j', .sound = "y"} );
     list_add( defOrthList, & (t_orth) {.letter = 'x', .sound = "kh"} );
-    list_add( defOrthList, & (t_orth) {.letter = 'ɣ', .sound = "gh"} );
-    list_add( defOrthList, & (t_orth) {.letter = 'ʔ', .sound = "‘"} );
+    list_add( defOrthList, & (t_orth) {.letter = L'ɣ', .sound = "gh"} );
+    list_add( defOrthList, & (t_orth) {.letter = L'ʔ', .sound = "‘"} );
     list_add( defOrthList, & (t_orth) {.letter = 'A', .sound = "á"} );
     list_add( defOrthList, & (t_orth) {.letter = 'E', .sound = "é"} );
     list_add( defOrthList, & (t_orth) {.letter = 'I', .sound = "í"} );
@@ -54,38 +54,38 @@ void cOrthInit() {
 
     // slavic
     t_list* slavicList = list_create();
-    list_add( slavicList, & (t_orth) {.letter = 'ʃ', .sound = "š"} );
-    list_add( slavicList, & (t_orth) {.letter = 'ʒ', .sound = "ž"} );
-    list_add( slavicList, & (t_orth) {.letter = 'ʧ', .sound = "č"} );
-    list_add( slavicList, & (t_orth) {.letter = 'ʤ', .sound = "ǧ"} );
+    list_add( slavicList, & (t_orth) {.letter = L'ʃ', .sound = "š"} );
+    list_add( slavicList, & (t_orth) {.letter = L'ʒ', .sound = "ž"} );
+    list_add( slavicList, & (t_orth) {.letter = L'ʧ', .sound = "č"} );
+    list_add( slavicList, & (t_orth) {.letter = L'ʤ', .sound = "ǧ"} );
     list_add( slavicList, & (t_orth) {.letter = 'j', .sound = "j"} );
-    list_add( slavicList, & (t_orth) {.letter = 'ʧ', .sound = "č"} );
+    list_add( slavicList, & (t_orth) {.letter = L'ʧ', .sound = "č"} );
     t_orthset sla = { .name = "Slavic", .orthset = slavicList };
 
     // german
     t_list* germanList = list_create();
-    list_add( germanList, & (t_orth) {.letter = 'ʃ', .sound = "sch"} );
-    list_add( germanList, & (t_orth) {.letter = 'ʒ', .sound = "zh"} );
-    list_add( germanList, & (t_orth) {.letter = 'ʧ', .sound = "tsch"} );
-    list_add( germanList, & (t_orth) {.letter = 'ʤ', .sound = "dz"} );
+    list_add( germanList, & (t_orth) {.letter = L'ʃ', .sound = "sch"} );
+    list_add( germanList, & (t_orth) {.letter = L'ʒ', .sound = "zh"} );
+    list_add( germanList, & (t_orth) {.letter = L'ʧ', .sound = "tsch"} );
+    list_add( germanList, & (t_orth) {.letter = L'ʤ', .sound = "dz"} );
     list_add( germanList, & (t_orth) {.letter = 'j', .sound = "j"} );
     list_add( germanList, & (t_orth) {.letter = 'x', .sound = "ch"} );
     t_orthset ger = { .name = "German", .orthset = germanList};
 
     // french
     t_list* frenchList = list_create();
-    list_add( frenchList, & (t_orth) {.letter = 'ʃ', .sound = "ch"} );
-    list_add( frenchList, & (t_orth) {.letter = 'ʒ', .sound = "j"} );
-    list_add( frenchList, & (t_orth) {.letter = 'ʧ', .sound = "tch"} );
-    list_add( frenchList, & (t_orth) {.letter = 'ʤ', .sound = "dj"} );
+    list_add( frenchList, & (t_orth) {.letter = L'ʃ', .sound = "ch"} );
+    list_add( frenchList, & (t_orth) {.letter = L'ʒ', .sound = "j"} );
+    list_add( frenchList, & (t_orth) {.letter = L'ʧ', .sound = "tch"} );
+    list_add( frenchList, & (t_orth) {.letter = L'ʤ', .sound = "dj"} );
     list_add( frenchList, & (t_orth) {.letter = 'x', .sound = "kh"} );
     t_orthset fre = { .name = "French", .orthset = frenchList};
 
     // chinese
     t_list* chineseList = list_create();
-    list_add( chineseList, & (t_orth) {.letter = 'ʃ', .sound = "x"} );
-    list_add( chineseList, & (t_orth) {.letter = 'ʧ', .sound = "q"} );
-    list_add( chineseList, & (t_orth) {.letter = 'ʤ', .sound = "j"} );
+    list_add( chineseList, & (t_orth) {.letter = L'ʃ', .sound = "x"} );
+    list_add( chineseList, & (t_orth) {.letter = L'ʧ', .sound = "q"} );
+    list_add( chineseList, & (t_orth) {.letter = L'ʤ', .sound = "j"} );
     t_orthset chi = { .name = "Chinese", .orthset = chineseList};
 
     list_add(cOrthList, &def);

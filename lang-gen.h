@@ -10,11 +10,11 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
+#include <locale.h>
 #include "langstructs.h"
 #include "utils/list.h"
 #include "utils/string.h"
-#include "utlis/random.h"
-#include "random.h"
+#include "utils/random.h"
 #include "initList.h"
 #include "ortho.h"
 

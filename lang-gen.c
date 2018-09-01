@@ -2,6 +2,7 @@
 #include "lang-gen.h"
 
 int main() {
+    setlocale(LC_CTYPE, "");
     listInit();
     printf("Hello, World!\n");
     return 0;

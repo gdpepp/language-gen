@@ -6,15 +6,16 @@
 #define LANGUAGE_GEN_LANGSTRUCTS_H
 
 #include "utils/list.h"
+#include <wchar.h>
 
-typedef unsigned char t_utf8;
+typedef wchar_t t_utf8;
 
 /*
  * LISTS STRUCTURES
  */
 
 typedef struct orth {
-    t_utf8 letter;
+    wchar_t letter;
     char *sound;
 } t_orth;
 
