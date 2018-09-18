@@ -12,20 +12,19 @@ void addConstructToList(t_list *list, char *construct, char *key) {
 
     for (i = 0; i < len; i++) {
         elem = list_get(list, i);
-        if(!strcmp(key, elem->key)) {
+        if (!strcmp(key, elem->key)) {
             list_add(elem->elements, construct);
             added = 1;
         }
     }
 
-
-    if(!added) {
+    if (!added) {
         addNewConstructElement(list, construct, key);
     }
 }
 
 void addNewConstructElement(t_list *list, char *construct, char *key) {
-    t_lang_construct new = { .key = key, .elements = list_create()};
+    t_lang_construct new = {.key = key, .elements = list_create()};
     list_add(new.elements, construct);
 
     list_add(list, &new);
@@ -54,15 +53,15 @@ int constructIncludedInList(t_list *list, char *m) {
     return included;
 }
 
-t_list* getConstructListFromList(t_list* clist, char* key) {
+t_list *getConstructListFromList(t_list *clist, char *key) {
     int i;
     int len = list_size(clist);
-    t_list* res = NULL;
-    t_lang_construct* aux = NULL;
+    t_list *res = NULL;
+    t_lang_construct *aux = NULL;
 
-    for(i = 0; i < len; i++) {
+    for (i = 0; i < len; i++) {
         aux = list_get(clist, i);
-        if(aux->key == key) {
+        if (aux->key == key) {
             res = aux->elements;
             break;
         }

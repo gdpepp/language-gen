@@ -13,7 +13,7 @@
 #include "construct.h"
 #include <string.h>
 
-char* getMorpheme(t_language* lang, char* key);
+char *getMorpheme(t_language *lang, char *key);
 
 #endif //LANGUAGE_GEN_MORPHEME_H
 

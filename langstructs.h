@@ -52,7 +52,7 @@ typedef struct lang_orth {
     t_list* cortho;
 } t_lang_orth;
 
-typedef struct lang_construct {
+typedef struct lang_con struct {
     char* key;
     t_list* elements;
 } t_lang_construct;
@@ -71,7 +71,7 @@ typedef struct language {
     int minchar;
     int maxchar;
     t_list* words; // list of t_lang_construct
-    t_list* names;
+    t_list* names; // list of char*
     t_list* morphemes; // list of t_lang_construct
     t_lang_phon* phon;
     t_lang_orth* orth;

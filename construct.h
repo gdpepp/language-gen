@@ -11,9 +11,9 @@
 #include "utils/random.h"
 #include <string.h>
 
-char* makeWord(t_language* lang, char* key);
+char *makeWord(t_language *lang, char *key);
 
-char* getWord(t_language* lang, char* key);
+char *getWord(t_language *lang, char *key);
 
 void addConstructToList(t_list *list, char *construct, char *key);
 
@@ -21,7 +21,7 @@ void addNewConstructElement(t_list *list, char *construct, char *key);
 
 int constructIncludedInList(t_list *list, char *m);
 
-t_list* getConstructListFromList(t_list* clist, char* key);
+t_list *getConstructListFromList(t_list *clist, char *key);
 
 #endif //LANGUAGE_GEN_WORD_H
 

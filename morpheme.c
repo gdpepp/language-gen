@@ -4,7 +4,7 @@
 
 #include "morpheme.h"
 
-void* chooseFromList(t_list *list, int exp) {
+void *chooseFromList(t_list *list, int exp) {
     int randint = getRandInt();
     int listlen = list_size(list);
 
@@ -14,7 +14,7 @@ void* chooseFromList(t_list *list, int exp) {
     return list_get(list, (int) index);
 }
 
-char chooseFromString(char* str, int exp) {
+char chooseFromString(char *str, int exp) {
     int randint = getRandInt();
     size_t len = strlen(str);
 
@@ -24,8 +24,8 @@ char chooseFromString(char* str, int exp) {
     return str[index];
 }
 
-char* spell(t_lang_orth* orth, bool isOrtho, char* syll) {
-    char* s = NULL;
+char *spell(t_lang_orth *orth, bool isOrtho, char *syll) {
+    char *s = NULL;
     size_t len = strlen(syll);
     t_utf8 c;
 
@@ -39,8 +39,8 @@ char* spell(t_lang_orth* orth, bool isOrtho, char* syll) {
     return s;
 }
 
-char* getPhonType(t_lang_phon* phon, char ptype) {
-    char* result = NULL;
+char *getPhonType(t_lang_phon *phon, char ptype) {
+    char *result = NULL;
 
     switch (ptype) {
         case 'C':
@@ -66,7 +66,7 @@ char* getPhonType(t_lang_phon* phon, char ptype) {
     return result;
 }
 
-char* makeSyllable(t_language *lang) {
+char *makeSyllable(t_language *lang) {
     int i;
     size_t sylllen = strlen(lang->syllStructure);
     char *syll = string_new();
@@ -107,12 +107,12 @@ char* makeSyllable(t_language *lang) {
     return spell(lang->orth, lang->ortho, syll);
 }
 
-char* getMorpheme(t_language* lang, char* key) {
+char *getMorpheme(t_language *lang, char *key) {
     int extras = 10;
     int n;
     int included = 0;
-    char* morph = NULL;
-    t_list* list = getConstructListFromList(lang->morphemes, key);
+    char *morph = NULL;
+    t_list *list = getConstructListFromList(lang->morphemes, key);
     int len = list_size(list);
 
     if (!lang->morph) {
@@ -125,7 +125,7 @@ char* getMorpheme(t_language* lang, char* key) {
 
     while (!included) {
         n = getRandByRange(len + extras, 0);
-        morph = list_get(list,n);
+        morph = list_get(list, n);
         if (morph == NULL) {
             morph = makeSyllable(lang);
 

@@ -18,29 +18,22 @@
 #include "initList.h"
 #include "ortho.h"
 #include "morpheme.h"
-
-int constructIncludedInList(t_list* list, char *m);
+#include "word.h"
 
 void setUp();
-
-void addConstructToList(t_list *list, char *morph, char *key);
-
-void addNewConstructElement(t_list *list, char *morph, char *key);
 
 void shuffleList(t_list *list);
 
 void *chooseFromList(t_list *list, int exp);
 
-char chooseFromString(char *str, int exp);
-
 char *append(t_list *list, char sep);
 
-char *spell(t_lang_orth *orth, bool isOrtho, char *syll);
+t_language* makeBasicLanguage();
 
-char *makeSyllable(t_language *lang);
+t_language* makeOrthoLanguage();
 
-char *getPhonType(t_lang_phon *phon, char ptype);
+t_language* makeRandomLanguage();
 
-t_list* getConstructListFromList(t_list* clist, char* key);
+t_lang_orth* getBasicPhon();
 
 #endif //LANGUAGE_GEN_LANG_GEN_H

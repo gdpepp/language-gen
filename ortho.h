@@ -8,7 +8,7 @@
 #include "langstructs.h"
 #include <string.h>
 
-t_utf8 getCharFromAllOrtho(t_lang_orth* orth, t_utf8 c);
+t_utf8 getCharFromAllOrtho(t_lang_orth *orth, t_utf8 c);
 
 t_utf8 getcharfromOrth(t_list *orth, t_utf8 c);
 
