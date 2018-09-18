@@ -36,4 +36,8 @@ t_language *makeRandomLanguage();
 
 t_lang_phon *getBasicPhon();
 
+void printLanguage(t_language *lang);
+
+void exitGracefully(t_language *lang);
+
 #endif //LANGUAGE_GEN_LANG_GEN_H

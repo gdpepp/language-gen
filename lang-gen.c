@@ -6,8 +6,14 @@ int main(int argc, char **argv) {
     listInit();
     printf("Hello, World!\n");
 
-    int type = toupper(argv[1][0]);
-
+    int type;
+    
+    if (argv[1] !=NULL) {
+        type = toupper(argv[1][0]);
+    } else {
+    	type = 'B';
+    }
+    
     t_language *lang = NULL;
 
     switch (type) {
@@ -21,7 +27,7 @@ int main(int argc, char **argv) {
             lang = makeRandomLanguage();
             break;
         default:
-            printf("argument not recognized");
+            printf("argument not recognized\n");
             exit(1);
     }
 
@@ -71,6 +77,11 @@ t_language *makeRandomLanguage() {
     return lang;
 }
 
+void printLanguage(t_language* lang) {
+//TODO
+	
+}
+
 t_lang_phon *getBasicPhon() {
     t_lang_phon *phon = malloc(sizeof(t_lang_phon));
     phon->C = "ptkmnls";
@@ -85,6 +96,10 @@ t_lang_phon *getBasicPhon() {
 void setUp() {
     setlocale(LC_CTYPE, "");
     setSeed();
+}
+
+void exitGracefully(t_language* lang) {
+   //TODO
 }
 
 void shuffleList(t_list *list) {
