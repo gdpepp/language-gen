@@ -17,14 +17,11 @@
 #include "utils/random.h"
 #include "initList.h"
 #include "ortho.h"
-
-int getRandByRange(int lo, int hi);
-
-int getRandByRange(int lo, int hi);
-
-int getRandInt();
+#include "morpheme.h"
 
 int constructIncludedInList(t_list* list, char *m);
+
+void setUp();
 
 void addConstructToList(t_list *list, char *morph, char *key);
 
