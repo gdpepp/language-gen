@@ -6,9 +6,9 @@ int main(int argc, char **argv) {
     listInit();
     printf("Hello, World!\n");
 
-    char type = toupper(argv[1]);
+    int type = toupper(argv[1][0]);
 
-    t_language* lang = NULL;
+    t_language *lang = NULL;
 
     switch (type) {
         case ('B'):
@@ -21,18 +21,22 @@ int main(int argc, char **argv) {
             lang = makeRandomLanguage();
             break;
         default:
-            _strerror("argument not recognized");
+            printf("argument not recognized");
             exit(1);
     }
 
-    //TODO PRINT RESULT
+    //print result
+    printLanguage(lang);
+
+    //free all
+    exitGracefully(lang);
 
     return EXIT_SUCCESS;
 }
 
-t_language* makeBasicLanguage() {
+t_language *makeBasicLanguage() {
 
-    t_language* lang = malloc(sizeof(t_language));
+    t_language *lang = malloc(sizeof(t_language));
 
     lang->syllStructure = "CVC";
     lang->genitive = NULL;
@@ -55,20 +59,20 @@ t_language* makeBasicLanguage() {
     return lang;
 }
 
-t_language* makeOrthoLanguage() {
-    t_language* lang = makeBasicLanguage();
+t_language *makeOrthoLanguage() {
+    t_language *lang = makeBasicLanguage();
     //TODO
     return lang;
 }
 
-t_language* makeRandomLanguage() {
-    t_language* lang = makeBasicLanguage();
+t_language *makeRandomLanguage() {
+    t_language *lang = makeBasicLanguage();
     //TODO
     return lang;
 }
 
-t_lang_orth* getBasicPhon() {
-    t_lang_phon* phon = malloc(sizeof(t_lang_phon));
+t_lang_phon *getBasicPhon() {
+    t_lang_phon *phon = malloc(sizeof(t_lang_phon));
     phon->C = "ptkmnls";
     phon->V = "aeiou";
     phon->S = "s";

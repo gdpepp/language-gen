@@ -52,7 +52,7 @@ typedef struct lang_orth {
     t_list* cortho;
 } t_lang_orth;
 
-typedef struct lang_con struct {
+typedef struct lang_construct {
     char* key;
     t_list* elements;
 } t_lang_construct;

@@ -28,12 +28,12 @@ void *chooseFromList(t_list *list, int exp);
 
 char *append(t_list *list, char sep);
 
-t_language* makeBasicLanguage();
+t_language *makeBasicLanguage();
 
-t_language* makeOrthoLanguage();
+t_language *makeOrthoLanguage();
 
-t_language* makeRandomLanguage();
+t_language *makeRandomLanguage();
 
-t_lang_orth* getBasicPhon();
+t_lang_phon *getBasicPhon();
 
 #endif //LANGUAGE_GEN_LANG_GEN_H
