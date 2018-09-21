@@ -4,14 +4,14 @@
 int main(int argc, char **argv) {
     setUp();
     listInit();
-    printf("Hello, World!\n");
+    //printf("Hello, World!\n");
 
     int type;
 
     if (argv[1] != NULL) {
         type = toupper(argv[1][0]);
     } else {
-        type = 'B';
+        type = 'R';
     }
 
     t_language *lang = NULL;
@@ -80,10 +80,15 @@ t_language *makeRandomLanguage() {
     lang->morph = 1;
     lang->wordpool = 1;
     lang->phon->C = getLettersFromSet(conset);
+    printf("%s\n", lang->phon->C);
     lang->phon->V = getLettersFromSet(vowset);
+    printf("%s\n", lang->phon->V);
     lang->phon->S = getLettersFromSet(sset);
+    printf("%s\n", lang->phon->S);
     lang->phon->F = getLettersFromSet(fset);
+    printf("%s\n", lang->phon->F);
     lang->phon->L = getLettersFromSet(lset);
+    printf("%s\n", lang->phon->L);
     lang->syllStructure = getSyllStructure();
     //TODO restricts?
     lang->orth->cortho = chooseOrthFromList(cOrthList, 2);

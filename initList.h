@@ -6,6 +6,10 @@
 #define LANGUAGE_GEN_INITLIST_H
 
 #include "langstructs.h"
+#include "utils/fileFunctions.h"
+#include <stdlib.h>
+#include <stdio.h>
+
 
 void listInit();
 

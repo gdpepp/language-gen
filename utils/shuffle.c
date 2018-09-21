@@ -5,17 +5,14 @@
 #include "shuffle.h"
 
 void *chooseFromList(t_list *list, int exp) {
-    int randint = getRandInt();
     int listlen = list_size(list);
-
-    exp ? exp : 1;
-
-    double index = floor(pow(randint, exp) * listlen);
-    return list_get(list, (int) index);
+    int index = getRandByRange(0, listlen);
+    return list_get(list, index);
 }
 
 char *getLettersFromSet(t_list *list) {
     t_set *set = chooseFromList(list, 2);
+    printf("%s\n", set->letters);
     char *letters = shuffleLetters(set->letters);
 
     return letters;
@@ -25,17 +22,19 @@ char *shuffleLetters(char *letters) {
     int i;
     int rand;
     int len = strlen(letters);
-    char *original = malloc(len + 1);
-    char *shuffled = malloc(len + 1);
+    int len2 = 0;
+    char *original = malloc((sizeof(char) * len) + 1);
+    memset(original, '\0', len + 1);
+    char *shuffled = malloc((sizeof(char) * len) + 1);
+    memset(shuffled, '\0', len + 1);
     char rl;
-    char tmp;
-    char left;
 
     strcat(original, letters);
     //TODO ERROR CHECKING
 
     for (i = 0; i < len; i++) {
-        rand = getRandByRange(i, len);
+        len2 = strlen(original);
+        rand = getRandByRange(0, len2);
         rl = original[rand];
         shuffled[i] = rl;
 
