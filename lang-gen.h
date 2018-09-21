@@ -15,6 +15,8 @@
 #include "utils/list.h"
 #include "utils/string.h"
 #include "utils/random.h"
+#include "utils/shuffle.h"
+#include "utils/fileFunctions.h"
 #include "initList.h"
 #include "ortho.h"
 #include "morpheme.h"
@@ -39,5 +41,11 @@ t_lang_phon *getBasicPhon();
 void printLanguage(t_language *lang);
 
 void exitGracefully(t_language *lang);
+
+char* getLettersFromSet(t_list* list );
+
+char* shuffleLetters(char* letters);
+
+char* getSyllStructure();
 
 #endif //LANGUAGE_GEN_LANG_GEN_H

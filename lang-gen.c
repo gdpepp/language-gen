@@ -7,13 +7,13 @@ int main(int argc, char **argv) {
     printf("Hello, World!\n");
 
     int type;
-    
-    if (argv[1] !=NULL) {
+
+    if (argv[1] != NULL) {
         type = toupper(argv[1][0]);
     } else {
-    	type = 'B';
+        type = 'B';
     }
-    
+
     t_language *lang = NULL;
 
     switch (type) {
@@ -60,26 +60,47 @@ t_language *makeBasicLanguage() {
     lang->words = list_create();
     lang->morphemes = list_create();
     lang->phon = getBasicPhon();
-    lang->ortho = NULL;
+    lang->orth = malloc(sizeof(t_lang_orth));
+    lang->orth->cortho = list_create();
+    lang->orth->vortho = list_create();
 
     return lang;
 }
 
 t_language *makeOrthoLanguage() {
     t_language *lang = makeBasicLanguage();
-    //TODO
+    lang->ortho = 1;
     return lang;
 }
 
 t_language *makeRandomLanguage() {
+
     t_language *lang = makeBasicLanguage();
-    //TODO
+    lang->ortho = 1;
+    lang->morph = 1;
+    lang->wordpool = 1;
+    lang->phon->C = getLettersFromSet(conset);
+    lang->phon->V = getLettersFromSet(vowset);
+    lang->phon->S = getLettersFromSet(sset);
+    lang->phon->F = getLettersFromSet(fset);
+    lang->phon->L = getLettersFromSet(lset);
+    lang->syllStructure = getSyllStructure();
+    //TODO restricts?
+    lang->orth->cortho = chooseOrthFromList(cOrthList, 2);
+    lang->orth->vortho = chooseOrthFromList(vOrthList, 2);
+
+    lang->minSyll = getRandByRange(1, 3);
+    if (strlen(lang->syllStructure) < 3) lang->minSyll++;
+    lang->maxSyll = getRandByRange(lang->minSyll + 1, 7);
+    lang->joiner = choosecharFromString("   -");
+
     return lang;
 }
 
-void printLanguage(t_language* lang) {
+
+void printLanguage(t_language *lang) {
 //TODO
-	
+
 }
 
 t_lang_phon *getBasicPhon() {
@@ -98,27 +119,8 @@ void setUp() {
     setSeed();
 }
 
-void exitGracefully(t_language* lang) {
-   //TODO
-}
-
-void shuffleList(t_list *list) {
-    int i;
-    int rand;
-    int listlen = list_size(list);
-    t_set *tmp = NULL;
-    t_set *relem = NULL;
-    t_set *left = NULL;
-
-    for (i = 0; i < listlen; i++) {
-        rand = getRandByRange(i, listlen);
-        relem = list_get(list, rand);
-
-        tmp = list_replace(list, i, relem);
-        left = list_replace(list, i, tmp);
-
-        free(left);
-    }
+void exitGracefully(t_language *lang) {
+    //TODO
 }
 
 char *makeName(t_language *lang, char *key) {
@@ -168,3 +170,19 @@ char *makeName(t_language *lang, char *key) {
     return name;
 }
 
+
+char *getSyllStructure() {
+    int lines = 0;
+    int pos = 0;
+    char *ss = NULL;
+
+    lines = getFileLines("syllstruct");
+
+    pos = getRandByRange(0, lines);
+
+    if ((ss = readFileLine("syllstruct", pos)) == NULL) {
+        printf("error al leer estructura de silabas");
+    }
+
+    return ss;
+}

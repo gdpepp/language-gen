@@ -4,16 +4,6 @@
 
 #include "morpheme.h"
 
-void *chooseFromList(t_list *list, int exp) {
-    int randint = getRandInt();
-    int listlen = list_size(list);
-
-    exp ? exp : 1;
-
-    double index = floor(pow(randint, exp) * listlen);
-    return list_get(list, (int) index);
-}
-
 char chooseFromString(char *str, int exp) {
     int randint = getRandInt();
     size_t len = strlen(str);

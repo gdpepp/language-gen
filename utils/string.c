@@ -11,6 +11,8 @@ static void _string_lower_element(char *ch);
 
 static void _string_upper_element(char *ch);
 
+char** _string_split(char* text, char* separator, bool(*condition)(char*, int));
+
 char *string_repeat(char character, int count) {
     char *text = calloc(count + 1, 1);
     int i = 0;
@@ -67,4 +69,64 @@ static void _string_do(char *text, void (*closure)(char *c)) {
         closure(&text[i]);
         i++;
     }
+}
+
+char* getString(char* origen, int size) {
+    char* str = (char*) malloc(size + 1);
+    memcpy(str, origen, size);
+    str[size] = '\0';
+    return str;
+}
+
+void freeSplit(char** split) {
+    int i;
+    for(i = 0; split[i] != NULL; i++){
+        free(split[i]);
+    }
+
+    free(split[i]); //libero el espacio que tiene NULL
+    free(split);
+}
+
+
+char **string_split(char *text, char *separator) {
+    bool _is_last_token(char* next, int _) {
+        return next[0] != '\0';
+    }
+    return _string_split(text, separator, _is_last_token);
+}
+
+
+char** _string_split(char* text, char* separator, bool(*condition)(char*, int)) {
+    char **substrings = NULL;
+    int size = 0;
+
+    char *text_to_iterate = string_duplicate(text);
+
+    char *next = text_to_iterate;
+    char *str = text_to_iterate;
+
+    while(condition(next, size)) {
+        char* token = strtok_r(str, separator, &next);
+        if(token == NULL) {
+            break;
+        }
+        str = NULL;
+        size++;
+        substrings = realloc(substrings, sizeof(char*) * size);
+        substrings[size - 1] = string_duplicate(token);
+    };
+
+    if (next[0] != '\0') {
+        size++;
+        substrings = realloc(substrings, sizeof(char*) * size);
+        substrings[size - 1] = string_duplicate(next);
+    }
+
+    size++;
+    substrings = realloc(substrings, sizeof(char*) * size);
+    substrings[size - 1] = NULL;
+
+    free(text_to_iterate);
+    return substrings;
 }

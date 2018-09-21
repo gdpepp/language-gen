@@ -61,5 +61,19 @@ void 	string_capitalize(char * text);
 */
 void 	string_to_lower(char * text);
 
+/**
+* @NAME: getString
+* @DESC: gets size-characters from origen
+*/
+char* getString(char* origen, int size);
+
+/**
+* @NAME: freeSplit
+* @DESC: frees char**
+*/
+void freeSplit(char** split);
+
+
+char **string_split(char *text, char *separator);
 
 #endif /* STRING_UTILS_H_ */

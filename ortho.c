@@ -29,3 +29,9 @@ t_utf8 getcharfromOrth(t_list *orth, t_utf8 c) {
     return result;
 }
 
+t_list *chooseOrthFromList(t_list *orthlist, int exp) {
+    t_orthset *aux = NULL;
+    aux = chooseFromList(orthlist, exp);
+    return aux->orthset;
+}
+
