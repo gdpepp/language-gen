@@ -15,7 +15,7 @@
 #include "utils/list.h"
 #include "utils/string.h"
 #include "utils/random.h"
-#include "utils/shuffle.h"
+#include "shuffle.h"
 #include "utils/fileFunctions.h"
 #include "initList.h"
 #include "ortho.h"

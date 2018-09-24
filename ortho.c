@@ -21,7 +21,7 @@ t_utf8 getcharfromOrth(t_list *orth, t_utf8 c) {
 
     for (i = 0; i < len; i++) {
         aux = list_get(orth, i);
-        if (aux->letter == c) {
+        if (!strcmp(aux->letter,&c)) {
             result = c;
         }
     }

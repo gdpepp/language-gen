@@ -13,8 +13,8 @@
 #include <errno.h>
 #include <unistd.h>
 #include <dirent.h>
-#include "utils/string.h"
-#include "utils/list.h"
+#include "string.h"
+#include "list.h"
 
 /*
  * Devuelve el tamanio del un archivo.

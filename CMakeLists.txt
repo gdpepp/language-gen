@@ -16,4 +16,17 @@ add_executable(language_gen
     lang-gen.c
     lang-gen.h
     langstructs.h
-    ortho.c ortho.h)
+    ortho.c ortho.h
+    utils/random.c
+    utils/random.h
+        word.c
+        word.h
+        utils/fileFunctions.c
+        utils/fileFunctions.h
+        shuffle.c
+        shuffle.h
+        morpheme.h
+        morpheme.c
+        construct.h
+        construct.c
+        )

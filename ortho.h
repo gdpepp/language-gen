@@ -6,7 +6,7 @@
 #define LANGUAGE_GEN_ORTHO_H
 
 #include "langstructs.h"
-#include "utils/shuffle.h"
+#include "shuffle.h"
 #include <string.h>
 
 t_utf8 getCharFromAllOrtho(t_lang_orth *orth, t_utf8 c);
