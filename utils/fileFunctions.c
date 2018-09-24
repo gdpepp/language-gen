@@ -48,7 +48,7 @@ off_t getFileLines(const char *filename) {
 
 	if (ferror(file)) {
 		fclose(file);
-		printf("Error al leer el archivo : %s", strerror(errno));
+		printf("Error al leer el archivo : %s\n", strerror(errno));
 		return -1;
 	}
 	fclose(file);

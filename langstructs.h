@@ -15,7 +15,7 @@ typedef wchar_t t_utf8;
  */
 
 typedef struct orth {
-    char *letter;
+    t_utf8 *letter;
     char *sound;
 } t_orth;
 

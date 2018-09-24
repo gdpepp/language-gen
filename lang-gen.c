@@ -181,11 +181,16 @@ char *getSyllStructure() {
     int pos = 0;
     char *ss = NULL;
 
-    lines = getFileLines("syllstruct");
+   static char* path = "./config/syllstruct";
+
+    if((lines = getFileLines(path)) == -1) {
+    	//error
+	exit(1);
+    }
 
     pos = getRandByRange(0, lines);
 
-    if ((ss = readFileLine("syllstruct", pos)) == NULL) {
+    if ((ss = readFileLine(path, pos)) == NULL) {
         printf("error al leer estructura de silabas");
     }
 

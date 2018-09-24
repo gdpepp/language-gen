@@ -49,7 +49,7 @@ void defOrthInit() {
 
         keyvalue = string_split(line, "=");
         os = malloc(sizeof(t_orth));
-        strcpy(os->letter, keyvalue[0]);
+        os->letter = (wchar_t*) keyvalue[0];
         strcpy(os->sound, keyvalue[1]);
         list_add(defOrthList, os);
     }
