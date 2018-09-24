@@ -1,7 +1,7 @@
 TARGET = langgen
-LIBS = -lm -lpthread
+LIBS = -lm
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -G -Wall
 VPATH = ./utils
 .PHONY: default all clean
 
@@ -18,7 +18,7 @@ HEADERS = $(shell find . -iname "*.h" | tr '\n' ' ')
 .PRECIOUS: $(TARGET) $(OBJECTS) 
 
 $(TARGET): $(OBJECTS) 
-	$(CC) $(OBJECTS) $(LIBS) -o $@
+	$(CC) $(OBJECTS) $(LIBS) -g -o $@
 
 clean: 
 	-rm -f *.o

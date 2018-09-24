@@ -6,14 +6,14 @@
 void listInit() {
     createLists();
     defOrthInit();
-//    cOrthInit();
-//    vOrthInit();
-//    consetInit();
-//    vowsetInit();
-//    ressetInit();
-//    ssetInit();
-//    lsetInit();
-//    fsetInit();
+    cOrthInit();
+    vOrthInit();
+    consetInit();
+    vowsetInit();
+    ressetInit();
+    ssetInit();
+    lsetInit();
+    fsetInit();
 }
 
 void createLists() {
@@ -29,27 +29,29 @@ void createLists() {
 }
 
 void defOrthInit() {
-    FILE *file;
-    char* fname = "./config/ortho/default";
+    FILE* file = NULL;
+    char* fname = "config/ortho/default";
     char line[32];
     char** keyvalue;
     int i;
     int lines = getFileLines(fname);
     t_orth* os = NULL;
 
-    if (!fopen(fname, "r")) {
+    if ((file = fopen(fname, "r")) == NULL) {
         exit(1);
     }
 
     for(i = 0; i < lines; i++) {
         memset(line, '\0', 32);
-        if(fgets(line, i, file) != line) {
+        if(fgets(line, 32, file) != line) {
             printf("Error en fgets");
         }
 
         keyvalue = string_split(line, "=");
-        os = malloc(sizeof(t_orth));
-        os->letter = (wchar_t*) keyvalue[0];
+        
+	os = malloc(sizeof(t_orth));
+        os->sound = malloc (sizeof(char) + strlen(keyvalue[1]));
+	os->letter = (wchar_t*) keyvalue[0];
         strcpy(os->sound, keyvalue[1]);
         list_add(defOrthList, os);
     }
@@ -58,53 +60,53 @@ void defOrthInit() {
 }
 
 // TODO transformar a unicode
-//void cOrthInit() {
-//
-//    // default
-//    t_orthset def = {.name = "Default", .orthset = list_create()};
-//
-//    // slavic
-//    t_list *slavicList = list_create();
-//    list_add(slavicList, &(t_orth) {.letter = L'ʃ', .sound = "š"});
-//    list_add(slavicList, &(t_orth) {.letter = L'ʒ', .sound = "ž"});
-//    list_add(slavicList, &(t_orth) {.letter = L'ʧ', .sound = "č"});
-//    list_add(slavicList, &(t_orth) {.letter = L'ʤ', .sound = "ǧ"});
-//    list_add(slavicList, &(t_orth) {.letter = 'j', .sound = "j"});
-//    list_add(slavicList, &(t_orth) {.letter = L'ʧ', .sound = "č"});
-//    t_orthset sla = {.name = "Slavic", .orthset = slavicList};
-//
-//    // german
-//    t_list *germanList = list_create();
-//    list_add(germanList, &(t_orth) {.letter = L'ʃ', .sound = "sch"});
-//    list_add(germanList, &(t_orth) {.letter = L'ʒ', .sound = "zh"});
-//    list_add(germanList, &(t_orth) {.letter = L'ʧ', .sound = "tsch"});
-//    list_add(germanList, &(t_orth) {.letter = L'ʤ', .sound = "dz"});
-//    list_add(germanList, &(t_orth) {.letter = 'j', .sound = "j"});
-//    list_add(germanList, &(t_orth) {.letter = 'x', .sound = "ch"});
-//    t_orthset ger = {.name = "German", .orthset = germanList};
-//
-//    // french
-//    t_list *frenchList = list_create();
-//    list_add(frenchList, &(t_orth) {.letter = L'ʃ', .sound = "ch"});
-//    list_add(frenchList, &(t_orth) {.letter = L'ʒ', .sound = "j"});
-//    list_add(frenchList, &(t_orth) {.letter = L'ʧ', .sound = "tch"});
-//    list_add(frenchList, &(t_orth) {.letter = L'ʤ', .sound = "dj"});
-//    list_add(frenchList, &(t_orth) {.letter = 'x', .sound = "kh"});
-//    t_orthset fre = {.name = "French", .orthset = frenchList};
-//
-//    // chinese
-//    t_list *chineseList = list_create();
-//    list_add(chineseList, &(t_orth) {.letter = L'ʃ', .sound = "x"});
-//    list_add(chineseList, &(t_orth) {.letter = L'ʧ', .sound = "q"});
-//    list_add(chineseList, &(t_orth) {.letter = L'ʤ', .sound = "j"});
-//    t_orthset chi = {.name = "Chinese", .orthset = chineseList};
-//
-//    list_add(cOrthList, &def);
-//    list_add(cOrthList, &sla);
-//    list_add(cOrthList, &ger);
-//    list_add(cOrthList, &fre);
-//    list_add(cOrthList, &chi);
-//}
+void cOrthInit() {
+
+    // default
+    t_orthset def = {.name = "Default", .orthset = list_create()};
+
+    // slavic
+    t_list *slavicList = list_create();
+    list_add(slavicList, &(t_orth) {.letter = L'ʃ', .sound = "š"});
+    list_add(slavicList, &(t_orth) {.letter = L'ʒ', .sound = "ž"});
+    list_add(slavicList, &(t_orth) {.letter = L'ʧ', .sound = "č"});
+    list_add(slavicList, &(t_orth) {.letter = L'ʤ', .sound = "ǧ"});
+    list_add(slavicList, &(t_orth) {.letter = 'j', .sound = "j"});
+    list_add(slavicList, &(t_orth) {.letter = L'ʧ', .sound = "č"});
+    t_orthset sla = {.name = "Slavic", .orthset = slavicList};
+
+    // german
+    t_list *germanList = list_create();
+    list_add(germanList, &(t_orth) {.letter = L'ʃ', .sound = "sch"});
+    list_add(germanList, &(t_orth) {.letter = L'ʒ', .sound = "zh"});
+    list_add(germanList, &(t_orth) {.letter = L'ʧ', .sound = "tsch"});
+    list_add(germanList, &(t_orth) {.letter = L'ʤ', .sound = "dz"});
+    list_add(germanList, &(t_orth) {.letter = 'j', .sound = "j"});
+    list_add(germanList, &(t_orth) {.letter = 'x', .sound = "ch"});
+    t_orthset ger = {.name = "German", .orthset = germanList};
+
+    // french
+    t_list *frenchList = list_create();
+    list_add(frenchList, &(t_orth) {.letter = L'ʃ', .sound = "ch"});
+    list_add(frenchList, &(t_orth) {.letter = L'ʒ', .sound = "j"});
+    list_add(frenchList, &(t_orth) {.letter = L'ʧ', .sound = "tch"});
+    list_add(frenchList, &(t_orth) {.letter = L'ʤ', .sound = "dj"});
+    list_add(frenchList, &(t_orth) {.letter = 'x', .sound = "kh"});
+    t_orthset fre = {.name = "French", .orthset = frenchList};
+
+    // chinese
+    t_list *chineseList = list_create();
+    list_add(chineseList, &(t_orth) {.letter = L'ʃ', .sound = "x"});
+    list_add(chineseList, &(t_orth) {.letter = L'ʧ', .sound = "q"});
+    list_add(chineseList, &(t_orth) {.letter = L'ʤ', .sound = "j"});
+    t_orthset chi = {.name = "Chinese", .orthset = chineseList};
+
+    list_add(cOrthList, &def);
+    list_add(cOrthList, &sla);
+    list_add(cOrthList, &ger);
+    list_add(cOrthList, &fre);
+    list_add(cOrthList, &chi);
+}
 //
 //void vOrthInit() {
 //

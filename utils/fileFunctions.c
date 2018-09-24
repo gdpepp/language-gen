@@ -21,8 +21,8 @@ off_t fsize(const char *filename) {
 
 off_t getFileLines(const char *filename) {
 	FILE *file;
-	off_t fileSize;
-	off_t lines;
+	off_t fileSize = 0;
+	off_t lines = 0;
     int ch;
 	file = fopen(filename, "r");
 
