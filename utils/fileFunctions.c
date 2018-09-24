@@ -7,7 +7,6 @@
 
 #include "fileFunctions.h"
 
-char* AUXFILE = "aux.txt";
 int MAX_LINE_LEN = 6;
 
 #define MB_SIZE	(1024*1024)
@@ -28,7 +27,7 @@ off_t getFileLines(const char *filename) {
 	file = fopen(filename, "r");
 
 	if (!file) {
-		printf("No se pudo abrir el archivo: %s", strerror(errno));
+		printf("No se pudo abrir el archivo: %s\n", strerror(errno));
 		return -1;
 	}
 	fileSize = fsize(filename);

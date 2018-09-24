@@ -30,7 +30,7 @@ void createLists() {
 
 void defOrthInit() {
     FILE *file;
-    char* fname = "/config/ortho/default";
+    char* fname = "./config/ortho/default";
     char line[32];
     char** keyvalue;
     int i;
@@ -38,7 +38,6 @@ void defOrthInit() {
     t_orth* os = NULL;
 
     if (!fopen(fname, "r")) {
-        printf("No se pudo abrir el archivo: %s", strerror(errno));
         exit(1);
     }
 
