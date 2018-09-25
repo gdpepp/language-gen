@@ -19,10 +19,10 @@ typedef struct orth {
     char *sound;
 } t_orth;
 
-typedef struct set {
-    char *setName;
-    char *letters;
-} t_set;
+//typedef struct set {
+//    char *setName;
+//    char *letters;
+//} t_set;
 
 typedef struct rectifier {
     char *rectName;
@@ -48,9 +48,10 @@ typedef struct lang_phonemes {
 } t_lang_phon;
 
 typedef struct lang_orth {
-    t_list* vortho;
-    t_list* cortho;
+    t_list* vortho; //list of t_orthset
+    t_list* cortho; //list of t_orthset
 } t_lang_orth;
+
 
 typedef struct lang_construct {
     char* key;
@@ -80,11 +81,11 @@ typedef struct language {
 t_list *defOrthList;
 t_list *cOrthList;
 t_list *vOrthList;
-t_list *conset;
-t_list *sset;
-t_list *lset;
-t_list *fset;
-t_list *vowset;
-t_list *resset;
+char** conset;
+char** sset;
+char** lset;
+char** fset;
+char** vowset;
+char** resset;
 
 #endif //LANGUAGE_GEN_LANGSTRUCTS_H

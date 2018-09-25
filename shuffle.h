@@ -12,13 +12,15 @@
 #include "utils/random.h"
 #include "langstructs.h"
 
-char *getLettersFromSet(t_list *list);
+char *getLettersFromSet(char** set);
+
+int setSize(char** set);
 
 char *shuffleLetters(char *letters);
 
-void shuffleList(t_list *list);
+void shuffleSet(char** set);
 
-void *chooseFromList(t_list *list, int exp);
+void *chooseFromSet(char** set, int exp);
 
 char choosecharFromString(char *str);
 

@@ -7,7 +7,7 @@
 
 #include "fileFunctions.h"
 
-int MAX_LINE_LEN = 6;
+int MAX_LINE_LEN = 1024;
 
 #define MB_SIZE	(1024*1024)
 
@@ -199,7 +199,7 @@ int appendFile(char* fileName, char* buffer) {
 	return EXIT_SUCCESS;
 }
 
-void deleteDirectory(char* path){
+void deleteDirectory(char* path) {
 	char *archivosPath = string_new();
 	char *aux;
 	string_append(&archivosPath, path);
@@ -230,3 +230,53 @@ char* getFileName(char* path) {
 
 	return aux;
 }
+
+char **getAllFilesFromDirectory(char *dname) {
+    char** files = NULL;
+    char *aux;
+    DIR *d = opendir(dname);
+    struct dirent *fd;
+    int i = 0;
+    if (d) {
+        while ((fd = readdir(d))) {
+            if (strcmp(fd->d_name, ".") && strcmp(fd->d_name, "..")) {
+                aux = string_new();
+                string_append(&aux, fd->d_name);
+
+                files[i] = aux;
+                i++;
+            }
+        }
+        //add NULL to last position for checking purposes
+        files[i] = NULL;
+    }
+    closedir(d);
+
+    return files;
+}
+
+void getAllLinesFromFile(char **set, char *fname) {
+    FILE *file = NULL;
+    char line[MAX_LINE_LEN];
+    int i;
+    int lines = getFileLines(fname);
+    char** content = NULL;
+
+    if ((file = fopen(fname, "r")) == NULL) {
+        printf("Error opening %s: %s\n", fname, strerror(errno));
+        exit(1);
+    }
+
+    for (i = 0; i < lines; i++) {
+        memset(line, '\0', MAX_LINE_LEN);
+        if (fgets(line, MAX_LINE_LEN, file) != line) {
+            printf("Error fgets");
+        }
+
+        //add line to set
+        content[i] = line;
+    }
+    fclose(file);
+    content[++i] = NULL;
+}
+

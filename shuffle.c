@@ -4,16 +4,21 @@
 
 #include "shuffle.h"
 
-void *chooseFromList(t_list *list, int exp) {
-    int listlen = list_size(list);
-    int index = getRandByRange(0, listlen);
-    return list_get(list, index);
+void *chooseFromSet(char** set, int exp) {
+    int setlen = setSize(set);
+    int index = getRandByRange(0, setlen);
+    return set[index];
 }
 
-char *getLettersFromSet(t_list *list) {
-    t_set *set = chooseFromList(list, 2);
-    printf("%s\n", set->letters);
-    char *letters = shuffleLetters(set->letters);
+int setSize(char** set) {
+    int i;
+    for(i = 0; set[i] != NULL; i++) ;
+    return i;
+}
+
+char *getLettersFromSet(char** set) {
+    char* str = chooseFromSet(set, 2);
+    char *letters = shuffleLetters(str);
 
     return letters;
 }
@@ -46,30 +51,28 @@ char *shuffleLetters(char *letters) {
     return shuffled;
 }
 
-void shuffleList(t_list *list) {
+void shuffleSet(char** set) {
     int i;
     int rand;
-    int listlen = list_size(list);
-    t_set *tmp = NULL;
-    t_set *relem = NULL;
-    t_set *left = NULL;
+    int setlen = setSize(set);
+    char* tmp = NULL;
+    char *relem = NULL;
 
-    for (i = 0; i < listlen; i++) {
-        rand = getRandByRange(i, listlen);
-        relem = list_get(list, rand);
+    for (i = 0; i < setlen; i++) {
+        rand = getRandByRange(i, setlen);
+        relem = set[rand];
 
-        tmp = list_replace(list, i, relem);
-        left = list_replace(list, i, tmp);
+        tmp = set[i];
+        set[i] = relem;
+        set[rand] = tmp;
 
-        free(left);
     }
 }
 
 char choosecharFromString(char *str) {
     int len = strlen(str);
     int idx = 0;
-    char *shuffled = malloc(sizeof(char) * len + 1);
-    shuffled = shuffleLetters(str);
+    char *shuffled = shuffleLetters(str);
     idx = getRandByRange(0, len);
 
     return shuffled[idx];

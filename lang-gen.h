@@ -24,10 +24,6 @@
 
 void setUp();
 
-void shuffleList(t_list *list);
-
-void *chooseFromList(t_list *list, int exp);
-
 char *append(t_list *list, char sep);
 
 t_language *makeBasicLanguage();
@@ -41,8 +37,6 @@ t_lang_phon *getBasicPhon();
 void printLanguage(t_language *lang);
 
 void exitGracefully(t_language *lang);
-
-char* getLettersFromSet(t_list* list );
 
 char* shuffleLetters(char* letters);
 

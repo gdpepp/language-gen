@@ -64,3 +64,11 @@ off_t getFileLines(const char *filename);
  * Obtiene linea del archivo.                                                                           |
  */
 char* readFileLine(char *filename, int line);
+/*                                                                                                               |
+ * Obtiene char** de los nombres de todos los archivos de un directorio.                                                                           |
+ */
+char **getAllFilesFromDirectory(char *dname);
+/*                                                                                                               |
+ * completa un char** con las lineas de cada archivo.                                                                           |
+ */
+void getAllLinesFromFile(char **set, char *fname);
