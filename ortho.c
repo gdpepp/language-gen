@@ -76,17 +76,20 @@ void fillOrthoListFromDirectory(t_list *orthList, char *folder) {
     dir = string_new();
     string_append(&dir, "config/ortho/");
     string_append(&dir, folder);
-    files = getAllFilesFromDirectory(dir);
+    getAllFilesFromDirectory(files, dir);
 
     for (i = 0; files[i] != NULL; i++) {
         filename = string_new();
-        auxlist = list_create();
-        os->orthset = auxlist;
+	auxlist = list_create();
+       
+	os = malloc(sizeof(t_orthset));
+	os->orthset = auxlist;
         //put name to list
         os->name = malloc(strlen(files[i]) * sizeof(char));
         strcpy(os->name, files[i]);
 
         //form full path for archive
+        string_append(&filename, dir);
         string_append(&filename, "/");
         string_append(&filename, files[i]);
 

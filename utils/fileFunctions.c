@@ -231,8 +231,7 @@ char* getFileName(char* path) {
 	return aux;
 }
 
-char **getAllFilesFromDirectory(char *dname) {
-    char** files = NULL;
+void getAllFilesFromDirectory(char** files, char *dname) {
     char *aux;
     DIR *d = opendir(dname);
     struct dirent *fd;
@@ -243,7 +242,8 @@ char **getAllFilesFromDirectory(char *dname) {
                 aux = string_new();
                 string_append(&aux, fd->d_name);
 
-                files[i] = aux;
+                files = realloc(files, sizeof(char*) * i);
+		files[i] = aux;
                 i++;
             }
         }
@@ -251,8 +251,6 @@ char **getAllFilesFromDirectory(char *dname) {
         files[i] = NULL;
     }
     closedir(d);
-
-    return files;
 }
 
 void getAllLinesFromFile(char **set, char *fname) {

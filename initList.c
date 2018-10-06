@@ -21,6 +21,13 @@ void createLists() {
     defOrthList = list_create();
     cOrthList = list_create();
     vOrthList = list_create();
+    conset = NULL;
+    sset = NULL;
+    lset = NULL;
+    fset = NULL;
+    vowset = NULL;
+    resset = NULL;
+
 }
 
 void defOrthInit() {
