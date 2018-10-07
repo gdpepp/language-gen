@@ -67,7 +67,7 @@ char* readFileLine(char *filename, int line);
 /*                                                                                                               |
  * Obtiene char** de los nombres de todos los archivos de un directorio.                                                                           |
  */
-void getAllFilesFromDirectory(char** files, char *dname);
+char** getAllFilesFromDirectory(char *dname);
 /*                                                                                                               |
  * completa un char** con las lineas de cada archivo.                                                                           |
  */

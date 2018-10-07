@@ -2,6 +2,9 @@
 
 const int LINELEN = 1024;
 
+
+char* getFilepath(char* dir, char* name);
+
 t_utf8 getCharFromAllOrtho(t_lang_orth *orth, t_utf8 c) {
     t_utf8 ch = c;
 
@@ -66,35 +69,29 @@ void fillOrthoList(t_list *list, char *fname) {
 
 void fillOrthoListFromDirectory(t_list *orthList, char *folder) {
     int i;
-    char *filename = NULL;
-    t_orthset *os = NULL;
-    t_list *auxlist = NULL;
-    char *dir = NULL;
-    char **files = NULL;
+    char* filename = NULL;
+    t_orthset* os = NULL;
+    t_list* auxlist = NULL;
+    char* dir = NULL;
+    char** files = NULL;
 
     //form complete path with given folder
     dir = string_new();
     string_append(&dir, "config/ortho/");
     string_append(&dir, folder);
-    getAllFilesFromDirectory(files, dir);
+
+    files = getAllFilesFromDirectory(dir);
 
     for (i = 0; files[i] != NULL; i++) {
-        filename = string_new();
-	auxlist = list_create();
-       
+        filename = getFilepath(dir, files[i]);
+	//fill orthset
 	os = malloc(sizeof(t_orthset));
-	os->orthset = auxlist;
-        //put name to list
         os->name = malloc(strlen(files[i]) * sizeof(char));
         strcpy(os->name, files[i]);
-
-        //form full path for archive
-        string_append(&filename, dir);
-        string_append(&filename, "/");
-        string_append(&filename, files[i]);
-
-        fillOrthoList(auxlist, filename);
-
+	
+	auxlist = list_create();        
+	os->orthset = auxlist;
+	fillOrthoList(auxlist, filename);
         list_add(orthList, os);
 
         free(filename);
@@ -102,6 +99,15 @@ void fillOrthoListFromDirectory(t_list *orthList, char *folder) {
 
     free(dir);
     freeSplit(files);
+}
+
+char* getFilepath(char* dir, char* name) {
+    char* filepath;
+    filepath = strdup(dir);
+    string_append(&filepath, "/");
+    string_append(&filepath, name);
+
+    return filepath;
 }
 
 t_orthset *chooseFromList(t_list *list, int exp) {

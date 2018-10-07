@@ -1,5 +1,5 @@
 /*
- * fileFunctions.c
+G * fileFunctions.c
  *
  *  Created on: 30/9/2017
  *      Author: utnso
@@ -231,7 +231,8 @@ char* getFileName(char* path) {
 	return aux;
 }
 
-void getAllFilesFromDirectory(char** files, char *dname) {
+char** getAllFilesFromDirectory(char *dname) {
+    char** files = NULL;	
     char *aux;
     DIR *d = opendir(dname);
     struct dirent *fd;
@@ -242,15 +243,18 @@ void getAllFilesFromDirectory(char** files, char *dname) {
                 aux = string_new();
                 string_append(&aux, fd->d_name);
 
-                files = realloc(files, sizeof(char*) * i);
+                files = realloc(files, sizeof(char*) * (i + 1));
+		// (i + 1) to avoid reallocating 0 at first iteration
 		files[i] = aux;
                 i++;
             }
         }
         //add NULL to last position for checking purposes
         files[i] = NULL;
+        closedir(d);
     }
-    closedir(d);
+
+    return files;
 }
 
 void getAllLinesFromFile(char **set, char *fname) {
@@ -271,10 +275,11 @@ void getAllLinesFromFile(char **set, char *fname) {
             printf("Error fgets");
         }
 
-        //add line to set
-        content[i] = line;
+        content = realloc(content, sizeof(char*) * (i + 1));
+        // (i + 1) to avoid reallocating 0 at first iteration
+        content[i] = strdup(line);
     }
     fclose(file);
-    content[++i] = NULL;
+    content[i] = NULL;
 }
 
