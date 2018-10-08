@@ -39,7 +39,7 @@ char* readAllFile(char *filename);
  */
 FILE* createFileWithData(char*filename, char* buffer);
 /*                                                                                                               |
- * Agrega data a un archivo ya creado.                                                                           |
+G * Agrega data a un archivo ya creado.                                                                           |
  */
 int appendFile(char* fileName, char* buffer);
 //---------------------------------------------------------------------------------------------------------------|
@@ -71,4 +71,4 @@ char** getAllFilesFromDirectory(char *dname);
 /*                                                                                                               |
  * completa un char** con las lineas de cada archivo.                                                                           |
  */
-void getAllLinesFromFile(char **set, char *fname);
+char** getAllLinesFromFile(char *fname);

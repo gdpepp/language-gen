@@ -257,12 +257,13 @@ char** getAllFilesFromDirectory(char *dname) {
     return files;
 }
 
-void getAllLinesFromFile(char **set, char *fname) {
+char** getAllLinesFromFile(char *fname) {
     FILE *file = NULL;
     char line[MAX_LINE_LEN];
     int i;
     int lines = getFileLines(fname);
     char** content = NULL;
+    char* eol = NULL;
 
     if ((file = fopen(fname, "r")) == NULL) {
         printf("Error opening %s: %s\n", fname, strerror(errno));
@@ -275,11 +276,18 @@ void getAllLinesFromFile(char **set, char *fname) {
             printf("Error fgets");
         }
 
+        //replace fgets' '\n' with '\0'
+	if((eol = strchr(line, '\n')) != NULL) {
+	   *eol = '\0';
+	}
+
         content = realloc(content, sizeof(char*) * (i + 1));
         // (i + 1) to avoid reallocating 0 at first iteration
         content[i] = strdup(line);
     }
     fclose(file);
     content[i] = NULL;
+
+    return content;
 }
 

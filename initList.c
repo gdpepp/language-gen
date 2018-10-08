@@ -44,23 +44,23 @@ void vOrthInit() {
 }
 
 void consetInit() {
-     getAllLinesFromFile(conset, "config/consets");
+     conset = getAllLinesFromFile("config/consets");
 }
 
 void vowsetInit() {
-    getAllLinesFromFile(vowset, "config/vowsets");
+    vowset = getAllLinesFromFile("config/vowsets");
 }
 
 void lsetInit() {
-    getAllLinesFromFile(lset, "config/lsets");
+    lset = getAllLinesFromFile("config/lsets");
 }
 
 void fsetInit() {
-    getAllLinesFromFile(fset, "config/fsets");
+    fset = getAllLinesFromFile("config/fsets");
 }
 
 void ssetInit() {
-    getAllLinesFromFile(sset, "config/ssets");
+    sset = getAllLinesFromFile("config/ssets");
 }
 
 //void ressetInit() {
