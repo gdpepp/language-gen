@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
-project(language_gen)
+project(language-gen)
 
 set(CMAKE_C_STANDARD 11)
 
 include_directories(.)
 
-add_executable(language_gen
+add_executable(language-gen
     utils/list.c
     utils/list.h
     utils/node.h
@@ -30,3 +30,5 @@ add_executable(language_gen
         construct.h
         construct.c
         )
+
+target_link_libraries(language-gen m)

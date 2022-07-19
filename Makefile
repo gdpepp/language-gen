@@ -13,7 +13,7 @@ OBJECTS = $(shell find . -iname "*.c" | tr '\n' ' ')
 HEADERS = $(shell find . -iname "*.h" | tr '\n' ' ')
 
 %.o: %.c $(HEADERS)
-	$(CC) $(VPATH) $(CFLAGS) -c $< -o $@ 
+	$(CC) $(VPATH) $(CFLAGS) -c $< -o $@
 
 .PRECIOUS: $(TARGET) $(OBJECTS) 
 
