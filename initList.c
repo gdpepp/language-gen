@@ -31,7 +31,7 @@ void createLists() {
 }
 
 void defOrthInit() {
-    fillOrthoList(defOrthList, "config/ortho/default");
+    fillOrthoList(defOrthList, "/home/gdpepp/CLionProjects/language-gen/config/ortho/default");
 }
 
 // TODO transformar a unicode
