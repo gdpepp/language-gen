@@ -142,8 +142,7 @@ char *makeName(t_language *lang, char *key) {
 
     while (used) {
         if (halfChance()) {
-            name = getWord(lang, key);
-            string_capitalize(name);
+            string_capitalize(getWord(lang, key));
         } else {
             w1 = getWord(lang, (likely() ? key : NULL));
             w2 = getWord(lang, (likely() ? key : NULL));
