@@ -21,9 +21,10 @@ t_utf8 getcharfromOrth(t_list *orth, t_utf8 c) {
     t_orth *aux = NULL;
     t_utf8 result = 0;
 
+
     for (i = 0; i < len; i++) {
         aux = list_get(orth, i);
-        if (aux->letter == (wchar_t *) c) {
+        if (aux->letter == (wchar_t *) &c) {
             result = c;
         }
     }
