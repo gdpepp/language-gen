@@ -12,6 +12,7 @@
 #include "ortho.h"
 #include "construct.h"
 #include <string.h>
+#include <math.h>
 
 char *getMorpheme(t_language *lang, char *key);
 
